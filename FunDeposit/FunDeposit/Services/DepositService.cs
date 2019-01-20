@@ -24,6 +24,36 @@ namespace FunDeposit.Services
             }
         }
 
+        public bool AddDeposit()
+        {
+            var totalMaturityAmount = Deposits.Sum(d => d.MaturityAmount);
+
+            if(totalMaturityAmount >= MockDepositConst.LimitTotalMaturityAmountForAdd)
+            {
+                return false;
+            }
+
+            var deposit = GenerateDepositByPrincipal(MockDepositConst.MinPrincipalForAddAndRemove, MockDepositConst.MaxPrincipalForAddAndRemove);
+
+            Deposits.Add(deposit);
+
+            return true;
+        }
+
+        public bool RemoveDeposit()
+        {
+            var totalMaturityAmount = Deposits.Sum(d => d.MaturityAmount);
+
+            if (totalMaturityAmount <= MockDepositConst.LimitTotalMaturityAmountForRemove)
+            {
+                return false;
+            }
+
+            Deposits.RemoveAt(0);
+
+            return true;
+        }
+
         private List<DepositModel> GenerateMockDeposits(int numberOfRecords, double minTotalMaturityAmount, double maxTotalMaturityAmount)
         {
             var depositList = new List<DepositModel>();
@@ -36,7 +66,7 @@ namespace FunDeposit.Services
             // Generate and add number of records to the list 
             for (int i = 0; i < numberOfRecords; i++)
             {
-                var deposit = GenerateDeposit(minEachMaturityAmount, maxEachMaturityAmount);
+                var deposit = GenerateDepositByMaturityAmount(minEachMaturityAmount, maxEachMaturityAmount);
 
                 depositList.Add(deposit);
             }
@@ -44,28 +74,48 @@ namespace FunDeposit.Services
             return depositList;
         }
 
-        private DepositModel GenerateDeposit(double minEachMaturityAmount, double maxEachMaturityAmount)
+        private DepositModel GenerateDepositByPrincipal(double minPrincipal, double maxPrincipal)
         {
-            var EachMaturityAmount = GetRandomDouble(minEachMaturityAmount, maxEachMaturityAmount);
+            var randomPrincipal = GetRandomDouble(minPrincipal, maxPrincipal);
 
             // Get random rate with associated term
-            var randomTermAndRateIndex = random.Next(TermDepositConst.TermAndRate.Count);
+            (var term, var rate) = GetRandomTermAndRate();
 
-            var term = TermDepositConst.TermAndRate[randomTermAndRateIndex].Term;
-
-            var rate = TermDepositConst.TermAndRate[randomTermAndRateIndex].InterestRate;
-
-            // Calculate principal
-            var principal = EachMaturityAmount / Math.Pow((1 + rate), term);
-
-            var deposite = new DepositModel(principal)
+            var deposit = new DepositModel(randomPrincipal)
             {
                 Term = term,
                 InterestRate = rate,
                 StartDate = GetRandomDateTime(),
             };
 
-            return deposite;
+            return deposit;
+        }
+
+        private DepositModel GenerateDepositByMaturityAmount(double minEachMaturityAmount, double maxEachMaturityAmount)
+        {
+            var EachMaturityAmount = GetRandomDouble(minEachMaturityAmount, maxEachMaturityAmount);
+
+            // Get random rate with associated term
+            (var term, var rate) = GetRandomTermAndRate();
+
+            // Calculate principal
+            var principal = EachMaturityAmount / Math.Pow((1 + rate), term);
+
+            var deposit = new DepositModel(principal)
+            {
+                Term = term,
+                InterestRate = rate,
+                StartDate = GetRandomDateTime(),
+            };
+
+            return deposit;
+        }
+
+        private (int term, double rate) GetRandomTermAndRate()
+        {
+            var randomTermAndRateIndex = random.Next(TermDepositConst.TermAndRate.Count);
+
+            return (TermDepositConst.TermAndRate[randomTermAndRateIndex].Term, TermDepositConst.TermAndRate[randomTermAndRateIndex].InterestRate);
         }
 
         private double GetRandomDouble(double min, double max)
@@ -81,5 +131,7 @@ namespace FunDeposit.Services
         {
             return DateTime.Now.AddDays(random.Next(1000));
         }
+
+
     }
 }

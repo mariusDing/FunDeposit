@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 
 namespace FunDeposit
 {
@@ -40,7 +41,11 @@ namespace FunDeposit
 
             services.AddAutoMapper();
 
-            services.AddSignalR();
+            services.AddSignalR()
+                    .AddJsonProtocol(options =>
+                    {
+                        options.PayloadSerializerSettings.ContractResolver = new DefaultContractResolver();
+                    });
 
             services.AddCors();
         }
