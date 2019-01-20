@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "knockout@3.4.2",
+      "destination": "wwwroot/lib/knockout/"
+    },
+    {
+      "library": "knockout.mapping@2.4.1",
+      "destination": "wwwroot/lib/knockout.mapping/"
+    },
+    {
+      "library": "signalr.js@2.4.0",
+      "destination": "wwwroot/lib/signalr.js/"
+    }
+  ]
+}
