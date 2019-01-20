@@ -1,5 +1,5 @@
-# FunDeposit
-Real time fun app for deposits.
+# Fun Deposit
+Real time fun app for deposit.
 
 Technologies:
 ASP.NET CORE,
