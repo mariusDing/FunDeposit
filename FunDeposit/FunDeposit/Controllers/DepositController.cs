@@ -23,7 +23,7 @@ namespace FunDeposit.Controllers
 
             var vm = new DepositsVM()
             {
-                deposits = _mapper.Map<List<DepositVM>>(deposits)
+                Deposits = _mapper.Map<List<DepositVM>>(deposits)
             };
 
             return View(vm);

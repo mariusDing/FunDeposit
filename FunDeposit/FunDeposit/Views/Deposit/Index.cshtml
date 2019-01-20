@@ -1,7 +1,56 @@
-﻿@{
+﻿@model DepositsVM
+
+@{
     ViewData["Title"] = "Fun Deposit";
 }
 
-<div>
-    haha
-</div>
+<h1>Deposits</h1>
+<br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Principal</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Interest Rate(%)</th>
+            <th scope="col">Term(Y)</th>
+            <th scope="col">Maturity Amount</th>
+        </tr>
+    </thead>
+
+    <tbody data-bind="foreach: Deposits">
+        <tr>
+            <td scope="row" data-bind="text: ($index() + 1)"></td>
+            <td scope="row" data-bind="text: PrincipalFormat"></td>
+            <td scope="row" data-bind="text: StartDateFormat"></td>
+            <td scope="row" data-bind="text: EndDateFormat"></td>
+            <td scope="row" data-bind="text: InterestRateFormat"></td>
+            <td scope="row" data-bind="text: Term"></td>
+            <td scope="row" data-bind="text: MaturityAmountFormat"></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr class="strong">
+            <td>Total Maturity Amount</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td scope="row" data-bind="text: TotalMaturityAmountFormat()"></td>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+            debugger;
+            var koViewModel = DepositUtils.init(viewModel);
+
+            ko.applyBindings(koViewModel, $("body")[0]);
+        });
+    </script>
+}

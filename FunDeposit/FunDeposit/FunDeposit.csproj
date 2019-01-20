@@ -2,7 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\signalr.core.js\**" />
+    <Content Remove="wwwroot\lib\signalr.core.js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\signalr.core.js\**" />
+    <None Remove="wwwroot\lib\signalr.core.js\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />

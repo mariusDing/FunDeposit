@@ -13,6 +13,15 @@
     {
       "library": "signalr.js@2.4.0",
       "destination": "wwwroot/lib/signalr.js/"
+    },
+    {
+      "library": "@aspnet/signalr@1",
+      "provider": "unpkg",
+      "destination": "wwwroot/lib/aspnet/signalr/"
+    },
+    {
+      "library": "moment.js@2.23.0",
+      "destination": "wwwroot/lib/moment.js/"
     }
   ]
 }

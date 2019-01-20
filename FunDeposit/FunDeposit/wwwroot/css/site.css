@@ -35,3 +35,27 @@ body {
         display: none;
     }
 }
+
+td, th {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+thead th, thead td {
+    text-align: center;
+}
+
+tbody th, tbody td {
+    text-align: center;
+}
+
+tfoot th, tfoot td {
+    text-align: center;
+}
+
+.strong{
+    font-weight: 600;
+}

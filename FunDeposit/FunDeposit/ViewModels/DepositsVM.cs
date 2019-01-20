@@ -6,9 +6,9 @@ namespace FunDeposit.ViewModels
 {
     public class DepositsVM
     {
-        public List<DepositVM> deposits = new List<DepositVM>();
+        public List<DepositVM> Deposits = new List<DepositVM>();
 
-        public double TotalMaturityAmount => deposits.Sum(d => d.MaturityAmount);
+        public double TotalMaturityAmount => Deposits.Sum(d => d.MaturityAmount);
     }
 
     public class DepositVM
