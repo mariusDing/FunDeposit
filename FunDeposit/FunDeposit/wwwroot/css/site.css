@@ -56,6 +56,12 @@ tfoot th, tfoot td {
     text-align: center;
 }
 
-.strong{
+.strong {
     font-weight: 600;
+}
+
+.sm-width {
+    width: 11%;
+    margin-top: 15px;
+    margin-bottom: -4px;
 }

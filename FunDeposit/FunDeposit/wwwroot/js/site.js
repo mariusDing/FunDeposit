@@ -39,6 +39,21 @@
                 setInterval(function () { connection.invoke("RemoveDeposit").catch(err => console.error(err.toString())); }, 5000);
             };
 
+            self.Select = function (self, event) {
+                var value = event.target.value;
+                if (value === 'b') {
+                    self.Buy();
+                }
+
+                if (value === 'h') {
+                    self.Hold();
+                }
+
+                if (value === 's') {
+                    self.Sell();
+                }
+            }
+
             function SetUpPropsForDisplay(deposits) {
                 ko.utils.arrayForEach(deposits(), function (deposit) {
                     deposit.PrincipalFormat = ko.computed(function () {

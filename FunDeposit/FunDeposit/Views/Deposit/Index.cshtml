@@ -6,16 +6,13 @@
 
 <h1>Deposits</h1>
 <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Action
-        <span class="caret"></span>
-    </button>
-
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="#" data-bind="click: Hold">Hold</a></li>
-        <li><a href="#" data-bind="click: Buy">Buy</a></li>
-        <li><a href="#" data-bind="click: Sell">Sell</a></li>
-    </ul>
+    <div class="form-group sm-width">
+        <select class="form-control" data-bind="event:{ change: Select }">
+            <option value="h">Hold</option>
+            <option value="b">Buy</option>
+            <option value="s">Sell</option>
+        </select>
+    </div>
 </div>
 <br />
 <table class="table table-hover">
@@ -59,7 +56,7 @@
     <script type="text/javascript">
         $(function () {
             var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
-            debugger;
+
             var koViewModel = DepositUtils.init(viewModel);
 
             ko.applyBindings(koViewModel, $("body")[0]);
