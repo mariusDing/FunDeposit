@@ -9,5 +9,9 @@ namespace FunDeposit.Services
     public interface IDepositService
     {
         List<DepositModel> Deposits { get; set; }
+
+        bool AddDeposit();
+
+        bool RemoveDeposit();
     }
 }
